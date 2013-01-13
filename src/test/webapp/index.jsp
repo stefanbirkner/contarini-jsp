@@ -6,6 +6,7 @@
 			.withCanonical("/index.html")
 			.withAlternates(
 					new com.github.stefanbirkner.contarini.Alternate("de", "/de/index.html"),
-					new com.github.stefanbirkner.contarini.Alternate("en", "/en/index.html")));
+					new com.github.stefanbirkner.contarini.Alternate("en", "/en/index.html"))
+			.withDescription("dummy description"));
 %>
 <contarini:webCrawlerInfo info="${info}"/>

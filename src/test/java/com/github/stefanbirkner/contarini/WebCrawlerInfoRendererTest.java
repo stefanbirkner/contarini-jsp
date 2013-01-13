@@ -11,6 +11,7 @@ import org.junit.Test;
 
 public class WebCrawlerInfoRendererTest extends WebCrawlerInfoRenderer {
   private static final String DUMMY_CANONICAL = "http://dummy.canonical";
+  private static final String DUMMY_DESCRIPTION = "dummy description";
   private static final String FIRST_DUMMY_LANGUAGE = "de";
   private static final String FIRST_DUMMY_HREF = DUMMY_CANONICAL;
   private static final String SECOND_DUMMY_LANGUAGE = "en";
@@ -22,6 +23,13 @@ public class WebCrawlerInfoRendererTest extends WebCrawlerInfoRenderer {
     WebCrawlerInfo info = new WebCrawlerInfo().withCanonical(DUMMY_CANONICAL);
     String tags = renderTagsForInfo(info);
     assertThat(tags, is(equalTo("<link rel=\"canonical\" href=\"" + DUMMY_CANONICAL + "\"/>")));
+  }
+
+  @Test
+  public void writesDescription() throws Exception {
+    WebCrawlerInfo info = new WebCrawlerInfo().withDescription(DUMMY_DESCRIPTION);
+    String tags = renderTagsForInfo(info);
+    assertThat(tags, is(equalTo("<meta name=\"description\" content=\"" + DUMMY_DESCRIPTION + "\"/>")));
   }
 
   @Test

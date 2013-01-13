@@ -9,23 +9,30 @@ public class WebCrawlerInfo {
   private static final List<Alternate> NO_ALTERNATES = emptyList();
   public final String canonical;
   public final List<Alternate> alternates;
+  public final String description;
 
-  private WebCrawlerInfo(String canonical, List<Alternate> alternates) {
+  private WebCrawlerInfo(String canonical, List<Alternate> alternates, String description) {
     this.canonical = canonical;
     this.alternates = alternates;
+    this.description = description;
   }
 
   public WebCrawlerInfo() {
     this.canonical = null;
     this.alternates = NO_ALTERNATES;
+    this.description = null;
   }
 
   public WebCrawlerInfo withCanonical(String canoncial) {
-    return new WebCrawlerInfo(canoncial, alternates);
+    return new WebCrawlerInfo(canoncial, alternates, description);
   }
 
   public WebCrawlerInfo withAlternates(Alternate... alternates) {
-    return new WebCrawlerInfo(canonical, asList(alternates));
+    return new WebCrawlerInfo(canonical, asList(alternates), description);
+  }
+
+  public WebCrawlerInfo withDescription(String description) {
+    return new WebCrawlerInfo(canonical, alternates, description);
   }
 
   @Override
