@@ -11,6 +11,10 @@ import org.junit.Test;
 
 public class WebCrawlerInfoRendererTest extends WebCrawlerInfoRenderer {
   private static final String DUMMY_CANONICAL = "http://dummy.canonical";
+  private static final String FIRST_DUMMY_LANGUAGE = "de";
+  private static final String FIRST_DUMMY_HREF = DUMMY_CANONICAL;
+  private static final String SECOND_DUMMY_LANGUAGE = "en";
+  private static final String SECOND_DUMMY_HREF = DUMMY_CANONICAL + ".en";
   private final WebCrawlerInfoRenderer renderer = new WebCrawlerInfoRenderer();
 
   @Test
@@ -18,6 +22,17 @@ public class WebCrawlerInfoRendererTest extends WebCrawlerInfoRenderer {
     WebCrawlerInfo info = new WebCrawlerInfo().withCanonical(DUMMY_CANONICAL);
     String tags = renderTagsForInfo(info);
     assertThat(tags, is(equalTo("<link rel=\"canonical\" href=\"" + DUMMY_CANONICAL + "\"/>")));
+  }
+
+  @Test
+  public void writesTwoAlternates() throws Exception {
+    Alternate firstAlternate = new Alternate(FIRST_DUMMY_LANGUAGE, FIRST_DUMMY_HREF);
+    Alternate secondAlternate = new Alternate(SECOND_DUMMY_LANGUAGE, SECOND_DUMMY_HREF);
+    WebCrawlerInfo info = new WebCrawlerInfo().withAlternates(firstAlternate, secondAlternate);
+    String tags = renderTagsForInfo(info);
+    assertThat(tags, is(equalTo("<link rel=\"alternate\" hreflang=\"" + FIRST_DUMMY_LANGUAGE + "\" href=\""
+        + FIRST_DUMMY_HREF + "\"/><link rel=\"alternate\" hreflang=\"" + SECOND_DUMMY_LANGUAGE + "\" href=\""
+        + SECOND_DUMMY_HREF + "\"/>")));
   }
 
   @Test
