@@ -41,6 +41,7 @@ public class WebCrawlerInfo {
     int result = 1;
     result = prime * result + ((alternates == null) ? 0 : alternates.hashCode());
     result = prime * result + ((canonical == null) ? 0 : canonical.hashCode());
+    result = prime * result + ((description == null) ? 0 : description.hashCode());
     return result;
   }
 
@@ -63,11 +64,17 @@ public class WebCrawlerInfo {
         return false;
     } else if (!canonical.equals(other.canonical))
       return false;
+    if (description == null) {
+      if (other.description != null)
+        return false;
+    } else if (!description.equals(other.description))
+      return false;
     return true;
   }
 
   @Override
   public String toString() {
-    return "WebCrawlerInfo [canonical=" + canonical + ", alternates=" + alternates + "]";
+    return "WebCrawlerInfo [canonical=" + canonical + ", alternates=" + alternates + ", description=" + description
+        + "]";
   }
 }
