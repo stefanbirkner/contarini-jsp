@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class WebCrawlerInfoRendererTest extends WebCrawlerInfoRenderer {
   private static final String DUMMY_CANONICAL = "http://dummy.canonical";
-  private static final String DUMMY_DESCRIPTION = "dummy description";
+  private static final String DUMMY_TEXT = "dummy text";
   private static final String FIRST_DUMMY_LANGUAGE = "de";
   private static final String FIRST_DUMMY_HREF = DUMMY_CANONICAL;
   private static final String SECOND_DUMMY_LANGUAGE = "en";
@@ -27,9 +27,16 @@ public class WebCrawlerInfoRendererTest extends WebCrawlerInfoRenderer {
 
   @Test
   public void writesDescription() throws Exception {
-    WebCrawlerInfo info = new WebCrawlerInfo().withDescription(DUMMY_DESCRIPTION);
+    WebCrawlerInfo info = new WebCrawlerInfo().withDescription(DUMMY_TEXT);
     String tags = renderTagsForInfo(info);
-    assertThat(tags, is(equalTo("<meta name=\"description\" content=\"" + DUMMY_DESCRIPTION + "\"/>")));
+    assertThat(tags, is(equalTo("<meta name=\"description\" content=\"" + DUMMY_TEXT + "\"/>")));
+  }
+
+  @Test
+  public void writesKeywords() throws Exception {
+    WebCrawlerInfo info = new WebCrawlerInfo().withKeywords(DUMMY_TEXT);
+    String tags = renderTagsForInfo(info);
+    assertThat(tags, is(equalTo("<meta name=\"keywords\" content=\"" + DUMMY_TEXT + "\"/>")));
   }
 
   @Test

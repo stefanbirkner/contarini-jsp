@@ -9,8 +9,8 @@ public class WebCrawlerInfoRenderer {
     if (info.canonical != null)
       writeCanonicalToWriter(info.canonical, w);
     writeAlternatesToWriter(info.alternates, w);
-    if (info.description != null)
-      writeDescriptionToWriter(info.description, w);
+    writeMetaTagToWriterIfContentExists("description", info.description, w);
+    writeMetaTagToWriterIfContentExists("keywords", info.keywords, w);
   }
 
   private void writeCanonicalToWriter(String canonical, Writer w) throws IOException {
@@ -32,9 +32,16 @@ public class WebCrawlerInfoRenderer {
     w.write("\"/>");
   }
 
-  private void writeDescriptionToWriter(String description, Writer w) throws IOException {
-    w.write("<meta name=\"description\" content=\"");
-    w.write(description);
+  private void writeMetaTagToWriterIfContentExists(String name, String content, Writer w) throws IOException {
+    if (content != null)
+      writeMetaTagToWriter(name, content, w);
+  }
+
+  private void writeMetaTagToWriter(String name, String content, Writer w) throws IOException {
+    w.write("<meta name=\"");
+    w.write(name);
+    w.write("\" content=\"");
+    w.write(content);
     w.write("\"/>");
   }
 }

@@ -51,4 +51,11 @@ public class WebCrawlerInfoTest {
     WebCrawlerInfo secondInfo = new WebCrawlerInfo().withDescription("second description");
     assertThat(firstInfo, is(not(equalTo(secondInfo))));
   }
+
+  @Test
+  public void isDifferentFromInfoWithOtherKeywords() {
+    WebCrawlerInfo firstInfo = new WebCrawlerInfo().withKeywords("first keywords");
+    WebCrawlerInfo secondInfo = new WebCrawlerInfo().withKeywords("second keywords");
+    assertThat(firstInfo, is(not(equalTo(secondInfo))));
+  }
 }

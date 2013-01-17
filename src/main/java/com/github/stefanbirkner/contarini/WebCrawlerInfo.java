@@ -10,29 +10,36 @@ public class WebCrawlerInfo {
   public final String canonical;
   public final List<Alternate> alternates;
   public final String description;
+  public final String keywords;
 
-  private WebCrawlerInfo(String canonical, List<Alternate> alternates, String description) {
+  private WebCrawlerInfo(String canonical, List<Alternate> alternates, String description, String keywords) {
     this.canonical = canonical;
     this.alternates = alternates;
     this.description = description;
+    this.keywords = keywords;
   }
 
   public WebCrawlerInfo() {
     this.canonical = null;
     this.alternates = NO_ALTERNATES;
     this.description = null;
+    this.keywords = null;
   }
 
   public WebCrawlerInfo withCanonical(String canoncial) {
-    return new WebCrawlerInfo(canoncial, alternates, description);
+    return new WebCrawlerInfo(canoncial, alternates, description, keywords);
   }
 
   public WebCrawlerInfo withAlternates(Alternate... alternates) {
-    return new WebCrawlerInfo(canonical, asList(alternates), description);
+    return new WebCrawlerInfo(canonical, asList(alternates), description, keywords);
   }
 
   public WebCrawlerInfo withDescription(String description) {
-    return new WebCrawlerInfo(canonical, alternates, description);
+    return new WebCrawlerInfo(canonical, alternates, description, keywords);
+  }
+
+  public WebCrawlerInfo withKeywords(String keywords) {
+    return new WebCrawlerInfo(canonical, alternates, description, keywords);
   }
 
   @Override
@@ -42,6 +49,7 @@ public class WebCrawlerInfo {
     result = prime * result + ((alternates == null) ? 0 : alternates.hashCode());
     result = prime * result + ((canonical == null) ? 0 : canonical.hashCode());
     result = prime * result + ((description == null) ? 0 : description.hashCode());
+    result = prime * result + ((keywords == null) ? 0 : keywords.hashCode());
     return result;
   }
 
@@ -69,12 +77,17 @@ public class WebCrawlerInfo {
         return false;
     } else if (!description.equals(other.description))
       return false;
+    if (keywords == null) {
+      if (other.keywords != null)
+        return false;
+    } else if (!keywords.equals(other.keywords))
+      return false;
     return true;
   }
 
   @Override
   public String toString() {
     return "WebCrawlerInfo [canonical=" + canonical + ", alternates=" + alternates + ", description=" + description
-        + "]";
+        + ", keywords=" + keywords + "]";
   }
 }
