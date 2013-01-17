@@ -1,5 +1,7 @@
 package com.github.stefanbirkner.contarini;
 
+import static com.github.stefanbirkner.contarini.CommonWebCrawlerAdvice.NO_ARCHIVE;
+import static com.github.stefanbirkner.contarini.CommonWebCrawlerAdvice.NO_FOLLOW;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -37,6 +39,20 @@ public class WebCrawlerInfoRendererTest extends WebCrawlerInfoRenderer {
     WebCrawlerInfo info = new WebCrawlerInfo().withKeywords(DUMMY_TEXT);
     String tags = renderTagsForInfo(info);
     assertThat(tags, is(equalTo("<meta name=\"keywords\" content=\"" + DUMMY_TEXT + "\"/>")));
+  }
+
+  @Test
+  public void writesSingleAdvice() throws Exception {
+    WebCrawlerInfo info = new WebCrawlerInfo().withAdvices(NO_ARCHIVE);
+    String tags = renderTagsForInfo(info);
+    assertThat(tags, is(equalTo("<meta name=\"robots\" content=\"noarchive\"/>")));
+  }
+
+  @Test
+  public void writesTwoAdvicesSeparatedByComma() throws Exception {
+    WebCrawlerInfo info = new WebCrawlerInfo().withAdvices(NO_ARCHIVE, NO_FOLLOW);
+    String tags = renderTagsForInfo(info);
+    assertThat(tags, is(equalTo("<meta name=\"robots\" content=\"noarchive, nofollow\"/>")));
   }
 
   @Test

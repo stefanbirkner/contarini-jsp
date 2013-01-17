@@ -4,6 +4,9 @@
 		"info",
 		new com.github.stefanbirkner.contarini.WebCrawlerInfo()
 			.withCanonical("/index.html")
+			.withAdvices(
+					com.github.stefanbirkner.contarini.CommonWebCrawlerAdvice.NO_INDEX,
+					com.github.stefanbirkner.contarini.CommonWebCrawlerAdvice.NO_FOLLOW)
 			.withAlternates(
 					new com.github.stefanbirkner.contarini.Alternate("de", "/de/index.html"),
 					new com.github.stefanbirkner.contarini.Alternate("en", "/en/index.html"))

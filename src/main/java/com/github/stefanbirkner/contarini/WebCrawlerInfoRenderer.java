@@ -8,6 +8,8 @@ public class WebCrawlerInfoRenderer {
   public void writeTagsForInfoToWriter(WebCrawlerInfo info, Writer w) throws IOException {
     if (info.canonical != null)
       writeCanonicalToWriter(info.canonical, w);
+    if (!info.advices.isEmpty())
+      writeAdvicesToWriter(info.advices, w);
     writeAlternatesToWriter(info.alternates, w);
     writeMetaTagToWriterIfContentExists("description", info.description, w);
     writeMetaTagToWriterIfContentExists("keywords", info.keywords, w);
@@ -17,6 +19,23 @@ public class WebCrawlerInfoRenderer {
     w.write("<link rel=\"canonical\" href=\"");
     w.write(canonical);
     w.write("\"/>");
+  }
+
+  private void writeAdvicesToWriter(List<WebCrawlerAdvice> advices, Writer w) throws IOException {
+    String content = join(advices);
+    writeMetaTagToWriter("robots", content, w);
+  }
+
+  private String join(List<WebCrawlerAdvice> advices) {
+    StringBuilder sb = new StringBuilder();
+    boolean first = true;
+    for (WebCrawlerAdvice advice : advices) {
+      if (!first)
+        sb.append(", ");
+      sb.append(advice.getLabel());
+      first = false;
+    }
+    return sb.toString();
   }
 
   private void writeAlternatesToWriter(List<Alternate> alternates, Writer w) throws IOException {

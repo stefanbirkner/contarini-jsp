@@ -1,5 +1,7 @@
 package com.github.stefanbirkner.contarini;
 
+import static com.github.stefanbirkner.contarini.CommonWebCrawlerAdvice.NO_ARCHIVE;
+import static com.github.stefanbirkner.contarini.CommonWebCrawlerAdvice.NO_INDEX;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -11,11 +13,20 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 public class WebCrawlerInfoTest {
+  private static final WebCrawlerAdvice DUMMY_ADVICE = NO_ARCHIVE;
+  private static final WebCrawlerAdvice OTHER_DUMMY_ADVICE = NO_INDEX;
   private static final Alternate DUMMY_ALTERNATE = new Alternate("language", "href");
   private static final Alternate OTHER_DUMMY_ALTERNATE = new Alternate("another language", "another href");
 
   @Rule
   public final ExpectedException thrown = none();
+
+  @Test
+  public void makesListOfAdvicesUnmodifiable() {
+    thrown.expect(UnsupportedOperationException.class);
+    WebCrawlerInfo info = new WebCrawlerInfo().withAdvices(DUMMY_ADVICE);
+    info.advices.add(OTHER_DUMMY_ADVICE);
+  }
 
   @Test
   public void makesListOfAlternatesUnmodifiable() {
@@ -25,10 +36,24 @@ public class WebCrawlerInfoTest {
   }
 
   @Test
+  public void createsEmptyInfoWithUnmodfiableListOfNoAdvices() {
+    thrown.expect(UnsupportedOperationException.class);
+    WebCrawlerInfo info = new WebCrawlerInfo();
+    info.advices.add(DUMMY_ADVICE);
+  }
+
+  @Test
   public void createsEmptyInfoWithUnmodfiableListOfNoAlternates() {
     thrown.expect(UnsupportedOperationException.class);
     WebCrawlerInfo info = new WebCrawlerInfo();
     info.alternates.add(DUMMY_ALTERNATE);
+  }
+
+  @Test
+  public void isDifferentFromInfoWithOtherAdvices() {
+    WebCrawlerInfo firstInfo = new WebCrawlerInfo().withAdvices(DUMMY_ADVICE);
+    WebCrawlerInfo secondInfo = new WebCrawlerInfo().withAdvices(OTHER_DUMMY_ADVICE);
+    assertThat(firstInfo, is(not(equalTo(secondInfo))));
   }
 
   @Test
