@@ -1,10 +1,15 @@
 package com.github.stefanbirkner.contarini;
 
+import static java.util.Arrays.asList;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
 public class WebCrawlerInfoRenderer {
+  private static final List<Replacement> REPLACEMENTS = asList(new Replacement("&", "&amp;"), new Replacement("<",
+      "&lt;"), new Replacement(">", "&gt;"), new Replacement("\"", "&quot;"), new Replacement("'", "&apos;"));
+
   public void writeTagsForInfoToWriter(WebCrawlerInfo info, Writer w) throws IOException {
     if (info.canonical != null)
       writeCanonicalToWriter(info.canonical, w);
@@ -60,7 +65,19 @@ public class WebCrawlerInfoRenderer {
     w.write("<meta name=\"");
     w.write(name);
     w.write("\" content=\"");
+    for (Replacement replacement : REPLACEMENTS)
+      content = content.replace(replacement.character, replacement.escapeSequence);
     w.write(content);
     w.write("\"/>");
+  }
+
+  private static class Replacement {
+    final String character;
+    final String escapeSequence;
+
+    public Replacement(String character, String escapeSequence) {
+      this.character = character;
+      this.escapeSequence = escapeSequence;
+    }
   }
 }

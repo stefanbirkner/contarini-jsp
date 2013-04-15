@@ -12,6 +12,8 @@ import java.io.StringWriter;
 import org.junit.Test;
 
 public class WebCrawlerInfoRendererTest extends WebCrawlerInfoRenderer {
+  private static final String CHARACTERS_TO_ESCAPE = "<>\"&'";
+  private static final String ESCAPED_CHARACTERS_TO_ESCAPE = "&lt;&gt;&quot;&amp;&apos;";
   private static final String DUMMY_CANONICAL = "http://dummy.canonical";
   private static final String DUMMY_TEXT = "dummy text";
   private static final String FIRST_DUMMY_LANGUAGE = "de";
@@ -35,10 +37,24 @@ public class WebCrawlerInfoRendererTest extends WebCrawlerInfoRenderer {
   }
 
   @Test
+  public void escapesCharactersInDescription() throws Exception {
+    WebCrawlerInfo info = new WebCrawlerInfo().withDescription(CHARACTERS_TO_ESCAPE);
+    String tags = renderTagsForInfo(info);
+    assertThat(tags, is(equalTo("<meta name=\"description\" content=\"" + ESCAPED_CHARACTERS_TO_ESCAPE + "\"/>")));
+  }
+
+  @Test
   public void writesKeywords() throws Exception {
     WebCrawlerInfo info = new WebCrawlerInfo().withKeywords(DUMMY_TEXT);
     String tags = renderTagsForInfo(info);
     assertThat(tags, is(equalTo("<meta name=\"keywords\" content=\"" + DUMMY_TEXT + "\"/>")));
+  }
+
+  @Test
+  public void escapesCharactersInKeywords() throws Exception {
+    WebCrawlerInfo info = new WebCrawlerInfo().withKeywords(CHARACTERS_TO_ESCAPE);
+    String tags = renderTagsForInfo(info);
+    assertThat(tags, is(equalTo("<meta name=\"keywords\" content=\"" + ESCAPED_CHARACTERS_TO_ESCAPE + "\"/>")));
   }
 
   @Test
