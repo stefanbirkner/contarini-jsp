@@ -65,10 +65,14 @@ public class WebCrawlerInfoRenderer {
     w.write("<meta name=\"");
     w.write(name);
     w.write("\" content=\"");
+    w.write(escape(content));
+    w.write("\"/>");
+  }
+
+  private String escape(String content) {
     for (Replacement replacement : REPLACEMENTS)
       content = content.replace(replacement.character, replacement.escapeSequence);
-    w.write(content);
-    w.write("\"/>");
+    return content;
   }
 
   private static class Replacement {
