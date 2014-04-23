@@ -52,7 +52,7 @@ public class WebCrawlerInfoRenderer {
     private void writeAlternateToWriter(Alternate alternate, Writer w) throws IOException {
         w.write("<link");
         writeAttribute("rel", "alternate", w);
-        writeAttribute("hreflang", alternate.language, w);
+        writeAttributeIfValueExists("hreflang", alternate.language, w);
         writeAttribute("href", alternate.href, w);
         w.write("/>");
     }
@@ -73,6 +73,11 @@ public class WebCrawlerInfoRenderer {
         for (Replacement replacement : REPLACEMENTS)
             content = content.replace(replacement.character, replacement.escapeSequence);
         return content;
+    }
+
+    private void writeAttributeIfValueExists(String name, String value, Writer w) throws IOException {
+        if (value != null)
+            writeAttribute(name, value, w);
     }
 
     private void writeAttribute(String name, String value, Writer w) throws IOException {

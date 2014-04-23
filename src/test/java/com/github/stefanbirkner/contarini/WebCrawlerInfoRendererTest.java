@@ -83,6 +83,14 @@ public class WebCrawlerInfoRendererTest extends WebCrawlerInfoRenderer {
     }
 
     @Test
+    public void writesAlternateWithoutLanguage() throws Exception {
+        Alternate alternate = new Alternate(FIRST_DUMMY_HREF);
+        WebCrawlerInfo info = new WebCrawlerInfo().withAlternates(alternate);
+        String tags = renderTagsForInfo(info);
+        assertThat(tags, is(equalTo("<link rel=\"alternate\" href=\"" + FIRST_DUMMY_HREF + "\"/>")));
+    }
+
+    @Test
     public void writesNothingForEmptyInfo() throws Exception {
         WebCrawlerInfo info = new WebCrawlerInfo();
         String tags = renderTagsForInfo(info);

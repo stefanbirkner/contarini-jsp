@@ -4,6 +4,10 @@ public class Alternate {
     public final String language;
     public final String href;
 
+    public Alternate(String href) {
+        this(null, href);
+    }
+
     public Alternate(String language, String href) {
         this.language = language;
         this.href = href;
