@@ -21,9 +21,10 @@ public class WebCrawlerInfoRenderer {
     }
 
     private void writeCanonicalToWriter(String canonical, Writer w) throws IOException {
-        w.write("<link rel=\"canonical\" href=\"");
-        w.write(canonical);
-        w.write("\"/>");
+        w.write("<link");
+        writeAttribute("rel", "canonical", w);
+        writeAttribute("href", canonical, w);
+        w.write("/>");
     }
 
     private void writeAdvicesToWriter(List<WebCrawlerAdvice> advices, Writer w) throws IOException {
@@ -49,11 +50,11 @@ public class WebCrawlerInfoRenderer {
     }
 
     private void writeAlternateToWriter(Alternate alternate, Writer w) throws IOException {
-        w.write("<link rel=\"alternate\" hreflang=\"");
-        w.write(alternate.language);
-        w.write("\" href=\"");
-        w.write(alternate.href);
-        w.write("\"/>");
+        w.write("<link");
+        writeAttribute("rel", "alternate", w);
+        writeAttribute("hreflang", alternate.language, w);
+        writeAttribute("href", alternate.href, w);
+        w.write("/>");
     }
 
     private void writeMetaTagToWriterIfContentExists(String name, String content, Writer w) throws IOException {
@@ -62,17 +63,24 @@ public class WebCrawlerInfoRenderer {
     }
 
     private void writeMetaTagToWriter(String name, String content, Writer w) throws IOException {
-        w.write("<meta name=\"");
-        w.write(name);
-        w.write("\" content=\"");
-        w.write(escape(content));
-        w.write("\"/>");
+        w.write("<meta");
+        writeAttribute("name", name, w);
+        writeAttribute("content", escape(content), w);
+        w.write("/>");
     }
 
     private String escape(String content) {
         for (Replacement replacement : REPLACEMENTS)
             content = content.replace(replacement.character, replacement.escapeSequence);
         return content;
+    }
+
+    private void writeAttribute(String name, String value, Writer w) throws IOException {
+        w.write(" ");
+        w.write(name);
+        w.write("=\"");
+        w.write(value);
+        w.write("\"");
     }
 
     private static class Replacement {
