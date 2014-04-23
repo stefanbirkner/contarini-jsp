@@ -1,6 +1,6 @@
 package com.github.stefanbirkner.contarini;
 
-import com.github.stefanbirkner.serverrule.Jetty;
+import com.github.stefanbirkner.serverrule.HttpServer;
 import org.apache.commons.io.IOUtils;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import static org.junit.Assert.assertThat;
 
 public class WebCrawlerInfoTagTest {
     @ClassRule
-    public static final Jetty SERVER = new Jetty();
+    public static final HttpServer SERVER = new HttpServer();
 
     @Test
     public void rendersTags() throws Exception {
