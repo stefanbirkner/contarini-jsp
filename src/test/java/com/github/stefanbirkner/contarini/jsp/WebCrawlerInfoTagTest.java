@@ -1,4 +1,4 @@
-package com.github.stefanbirkner.contarini;
+package com.github.stefanbirkner.contarini.jsp;
 
 import com.github.stefanbirkner.serverrule.HttpServer;
 import org.apache.commons.io.IOUtils;
@@ -24,7 +24,7 @@ public class WebCrawlerInfoTagTest {
         assertThat(pageSource, is(equalTo(snippetWithName("tags.snippet"))));
     }
 
-    private String pageSourceForUrl(String urlAsString) throws MalformedURLException, IOException {
+    private String pageSourceForUrl(String urlAsString) throws IOException {
         URL url = new URL(urlAsString);
         return IOUtils.toString(url.openStream());
     }

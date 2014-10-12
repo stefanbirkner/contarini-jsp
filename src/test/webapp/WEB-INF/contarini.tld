@@ -10,7 +10,7 @@
 
     <tag>
         <name>webCrawlerInfo</name>
-        <tag-class>com.github.stefanbirkner.contarini.WebCrawlerInfoTag</tag-class>
+        <tag-class>com.github.stefanbirkner.contarini.jsp.WebCrawlerInfoTag</tag-class>
         <body-content>empty</body-content>
         <attribute>
             <name>info</name>

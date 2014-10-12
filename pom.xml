@@ -8,14 +8,14 @@
         <version>2</version>
     </parent>
 
-    <artifactId>contarini</artifactId>
-    <version>0.5.1-SNAPSHOT</version>
+    <artifactId>contarini-jsp</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>Contarini</name>
-    <description>Java model and renderer for web crawler tags.</description>
-    <url>http://stefanbirkner.github.io/contarini/</url>
-    <inceptionYear>2012</inceptionYear>
+    <name>JSP Support for Contarini</name>
+    <description>Render tag for Contarini's web crawler tags.</description>
+    <url>http://stefanbirkner.github.io/contarini-jsp/</url>
+    <inceptionYear>2014</inceptionYear>
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -29,9 +29,9 @@
     </prerequisites>
 
     <scm>
-        <connection>scm:git:git://github.com/stefanbirkner/contarini.git</connection>
-        <developerConnection>scm:git:git@github.com:stefanbirkner/contarini.git</developerConnection>
-        <url>https://github.com/stefanbirkner/contarini/</url>
+        <connection>scm:git:git://github.com/stefanbirkner/contarini-jsp.git</connection>
+        <developerConnection>scm:git:git@github.com:stefanbirkner/contarini-jsp.git</developerConnection>
+        <url>https://github.com/stefanbirkner/contarini-jsp/</url>
     </scm>
 
     <properties>
@@ -40,6 +40,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.stefanbirkner</groupId>
+            <artifactId>contarini</artifactId>
+            <version>[0.1.0,1.0.0)</version>
+        </dependency>
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>javax.servlet.jsp-api</artifactId>

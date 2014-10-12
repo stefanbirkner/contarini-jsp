@@ -1,4 +1,7 @@
-package com.github.stefanbirkner.contarini;
+package com.github.stefanbirkner.contarini.jsp;
+
+import com.github.stefanbirkner.contarini.WebCrawlerInfo;
+import com.github.stefanbirkner.contarini.WebCrawlerInfoRenderer;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
